@@ -1,6 +1,6 @@
-extern crate geohash;
+extern crate geohashrust;
 
-use geohash::{GeoLocation, BoundingBox};
+use geohashrust::{GeoLocation, BoundingBox};
 #[test]
 fn box_create() {
     let b=BoundingBox::new();

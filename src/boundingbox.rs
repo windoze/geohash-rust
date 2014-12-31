@@ -16,7 +16,7 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::new();
+    /// let b=geohashrust::BoundingBox::new();
     /// assert!(b.min_lat==0.0);
     /// assert!(b.min_lon==0.0);
     /// assert!(b.max_lat==0.0);
@@ -36,7 +36,7 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::from_coordinates(34.0, 12.0, 78.0, 56.0);
+    /// let b=geohashrust::BoundingBox::from_coordinates(34.0, 12.0, 78.0, 56.0);
     /// assert!(b.min_lat==12.0);
     /// assert!(b.min_lon==56.0);
     /// assert!(b.max_lat==34.0);
@@ -56,12 +56,12 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let box1=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let box1=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude:23.0,
     ///         longitude:89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude:67.0,
     ///         longitude:45.0,
     ///     },
@@ -85,27 +85,27 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let box1=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let box1=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
     /// );
-    /// let box2=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let box2=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 123.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 145.0,
     ///     },
     /// );
-    /// let box3=geohash::BoundingBox::merged(box1, box2);
+    /// let box3=geohashrust::BoundingBox::merged(box1, box2);
     /// assert_eq!(box3.min_lat, 23.0);
     /// assert_eq!(box3.min_lon, 45.0);
     /// assert_eq!(box3.max_lat, 123.0);
@@ -125,12 +125,12 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let b=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -150,12 +150,12 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let b=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -175,12 +175,12 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let b=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -200,12 +200,12 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let b=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -225,12 +225,12 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let b=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -250,12 +250,12 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let b=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -271,12 +271,12 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let b=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 99.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -292,12 +292,12 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let b=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -313,12 +313,12 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let b=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 99.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -334,18 +334,18 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let b=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let b=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 99.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
     /// );
-    /// assert!(b.contains(geohash::GeoLocation::from_coordinates(33.0, 55.0)));
-    /// assert!(!b.contains(geohash::GeoLocation::from_coordinates(13.0, 55.0)));
+    /// assert!(b.contains(geohashrust::GeoLocation::from_coordinates(33.0, 55.0)));
+    /// assert!(!b.contains(geohashrust::GeoLocation::from_coordinates(13.0, 55.0)));
     /// ```
     pub fn contains(&self, point: GeoLocation) -> bool {
     	(point.latitude >= self.min_lat) && (point.latitude <= self.max_lat)
@@ -357,22 +357,22 @@ impl BoundingBox {
     /// # Example
     ///
     /// ```
-    /// let mut box1=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let mut box1=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
     /// );
-    /// let box2=geohash::BoundingBox::from_geolocations(
-    ///     geohash::GeoLocation{
+    /// let box2=geohashrust::BoundingBox::from_geolocations(
+    ///     geohashrust::GeoLocation{
     ///         latitude: 123.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohash::GeoLocation{
+    ///     geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 145.0,
     ///     },

@@ -47,7 +47,7 @@ impl BinaryHash {
     /// use std::collections::Bitv;
     /// let a=0b11100110;
     /// let bv = Bitv::from_bytes(&[a]);
-    /// assert_eq!(geohash::BinaryHash::from_bitv(&bv).to_string(), "11100110");
+    /// assert_eq!(geohashrust::BinaryHash::from_bitv(&bv).to_string(), "11100110");
     /// ```
     pub fn from_bitv(bv: &Bitv) -> BinaryHash {
         let mut output=BinaryHash::new();
@@ -62,7 +62,7 @@ impl BinaryHash {
     /// # Example
     ///
     /// ```
-    /// let bh=geohash::BinaryHash::from_string("11100110");
+    /// let bh=geohashrust::BinaryHash::from_string("11100110");
     /// assert_eq!(bh.to_string(), "11100110");
     /// ```
     pub fn from_string(s: &str) -> BinaryHash {
@@ -82,11 +82,11 @@ impl BinaryHash {
     /// # Example
     ///
     /// ```
-    /// let l=geohash::GeoLocation{
+    /// let l=geohashrust::GeoLocation{
     ///         latitude:31.23,
     ///         longitude:121.473,
     /// };
-    /// let bh=geohash::BinaryHash::encode(l, 8);
+    /// let bh=geohashrust::BinaryHash::encode(l, 8);
     /// assert_eq!(bh.to_string(), "11100110");
     /// ```
     pub fn encode(l: GeoLocation, precision: uint) -> BinaryHash {
@@ -125,9 +125,9 @@ impl BinaryHash {
     /// # Example
     ///
     /// ```
-    /// let bh=geohash::BinaryHash::from_string("11100");
+    /// let bh=geohashrust::BinaryHash::from_string("11100");
     /// let bbox=bh.decode();
-    /// assert!(bbox.contains(geohash::GeoLocation::from_coordinates(21.0, 113.0)));
+    /// assert!(bbox.contains(geohashrust::GeoLocation::from_coordinates(21.0, 113.0)));
     /// ```
     pub fn decode(&self) -> BoundingBox {
         let mut output = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
@@ -159,8 +159,8 @@ impl BinaryHash {
     /// # Example
     ///
     /// ```
-    /// let bbox=geohash::BinaryHash::decode_string("11100");
-    /// assert!(bbox.contains(geohash::GeoLocation::from_coordinates(21.0, 113.0)));
+    /// let bbox=geohashrust::BinaryHash::decode_string("11100");
+    /// assert!(bbox.contains(geohashrust::GeoLocation::from_coordinates(21.0, 113.0)));
     /// ```
     pub fn decode_string(s: &str) -> BoundingBox {
         BinaryHash::from_string(s).decode()
@@ -174,7 +174,7 @@ impl BinaryHash {
     /// use std::collections::Bitv;
     /// let a=0b11100110;
     /// let bv = Bitv::from_bytes(&[a]);
-    /// let bh=geohash::BinaryHash::from_string("11100110");
+    /// let bh=geohashrust::BinaryHash::from_string("11100110");
     /// assert_eq!(bh.to_bitv(), bv);
     /// ```
     pub fn to_bitv(&self) -> Bitv {
@@ -190,7 +190,7 @@ impl BinaryHash {
     /// # Example
     ///
     /// ```
-    /// let bh=geohash::BinaryHash::from_string("11100110");
+    /// let bh=geohashrust::BinaryHash::from_string("11100110");
     /// assert_eq!(bh.to_string(), "11100110");
     /// ```
     pub fn to_string(&self) -> String {
@@ -206,7 +206,7 @@ impl BinaryHash {
     /// # Example
     ///
     /// ```
-    /// let mut bh=geohash::BinaryHash::new();
+    /// let mut bh=geohashrust::BinaryHash::new();
     /// assert_eq!(bh.len(), 0u);
     /// bh.push(true);
     /// bh.push(true);
@@ -224,7 +224,7 @@ impl BinaryHash {
     /// # Example
     ///
     /// ```
-    /// let mut bh=geohash::BinaryHash::new();
+    /// let mut bh=geohashrust::BinaryHash::new();
     /// assert!(bh.empty());
     /// bh.push(true);
     /// bh.push(true);
@@ -241,7 +241,7 @@ impl BinaryHash {
     /// # Example
     ///
     /// ```
-    /// let mut bh=geohash::BinaryHash::new();
+    /// let mut bh=geohashrust::BinaryHash::new();
     /// bh.push(true);
     /// bh.push(true);
     /// bh.push(false);
@@ -260,7 +260,7 @@ impl BinaryHash {
     /// # Example
     ///
     /// ```
-    /// let mut bh=geohash::BinaryHash::new();
+    /// let mut bh=geohashrust::BinaryHash::new();
     /// bh.push(true);
     /// bh.push(true);
     /// bh.push(false);
@@ -279,11 +279,11 @@ impl BinaryHash {
 /// # Example
 ///
 /// ```
-/// let l=geohash::GeoLocation{
+/// let l=geohashrust::GeoLocation{
 ///         latitude:31.16373922,
 ///         longitude:121.62585927,
 /// };
-/// assert_eq!(geohash::encode(l, 7u), "wtw3r9j");
+/// assert_eq!(geohashrust::encode(l, 7u), "wtw3r9j");
 /// ```
 pub fn encode(l: GeoLocation, precision: uint) -> String {
 	let mut bbox = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
@@ -330,8 +330,8 @@ pub fn encode(l: GeoLocation, precision: uint) -> String {
 /// # Example
 ///
 /// ```
-/// let bbox=geohash::decode("wtw3r9jjz");
-/// assert!(bbox.contains(geohash::GeoLocation::from_coordinates(31.163728, 121.625841)));
+/// let bbox=geohashrust::decode("wtw3r9jjz");
+/// assert!(bbox.contains(geohashrust::GeoLocation::from_coordinates(31.163728, 121.625841)));
 /// ```
 pub fn decode(hash: &str) -> BoundingBox {
     let mut output = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
@@ -371,8 +371,8 @@ pub fn decode(hash: &str) -> BoundingBox {
 /// # Example
 ///
 /// ```
-/// assert_eq!(geohash::neighbor("wtw3s", (-1, -1)), "wtw37");
-/// assert_eq!(geohash::neighbor("wtw3sjj", (1, -1)), "wtw3sjk");
+/// assert_eq!(geohashrust::neighbor("wtw3s", (-1, -1)), "wtw37");
+/// assert_eq!(geohashrust::neighbor("wtw3sjj", (1, -1)), "wtw3sjk");
 /// ```
 pub fn neighbor(hash: &str, direction: (int, int)) -> String {
 	let b = decode(hash);
@@ -390,7 +390,7 @@ pub fn neighbor(hash: &str, direction: (int, int)) -> String {
 /// # Example
 ///
 /// ```
-/// let ns=geohash::neighbors("wtw3s");
+/// let ns=geohashrust::neighbors("wtw3s");
 /// assert_eq!(ns[0], "wtw3s");
 /// assert_eq!(ns[1], "wtw37");
 /// assert_eq!(ns[2], "wtw3k");

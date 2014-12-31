@@ -1,6 +1,6 @@
 [package]
 
-name = "geohash"
+name = "geohashrust"
 version = "0.0.1"
 authors = ["Xu Chen <windoze.net@gmail.com>"]
 

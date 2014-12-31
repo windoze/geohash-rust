@@ -21,7 +21,7 @@ impl GeoLocation {
     /// # Example
     ///
     /// ```
-    /// let l = geohash::GeoLocation::new();
+    /// let l = geohashrust::GeoLocation::new();
     /// assert_eq!(l.latitude, 0.0);
     /// assert_eq!(l.longitude, 0.0);
     /// ```
@@ -37,7 +37,7 @@ impl GeoLocation {
     /// # Example
     ///
     /// ```
-    /// let l = geohash::GeoLocation::from_coordinates(48.1333, 11.5667);
+    /// let l = geohashrust::GeoLocation::from_coordinates(48.1333, 11.5667);
     /// assert_eq!(l.latitude, 48.1333);
     /// assert_eq!(l.longitude, 11.5667);
     /// ```
@@ -57,8 +57,8 @@ impl GeoLocation {
     ///
     /// ```
     /// use std::num::Float;
-    /// let new_york = geohash::GeoLocation::from_coordinates(40.7127, -74.0059);
-    /// let helsinki = geohash::GeoLocation::from_coordinates(60.1708, 24.9375);
+    /// let new_york = geohashrust::GeoLocation::from_coordinates(40.7127, -74.0059);
+    /// let helsinki = geohashrust::GeoLocation::from_coordinates(60.1708, 24.9375);
     /// assert_eq!(new_york.distance_to(helsinki).round(), 6618.0);
     /// ```
     pub fn distance_to(&self, other: GeoLocation) -> f64 {
@@ -83,8 +83,8 @@ impl GeoLocation {
 ///
 /// ```
 /// use std::num::Float;
-/// let new_york = geohash::GeoLocation::from_coordinates(40.7127, -74.0059);
-/// let helsinki = geohash::GeoLocation::from_coordinates(60.1708, 24.9375);
+/// let new_york = geohashrust::GeoLocation::from_coordinates(40.7127, -74.0059);
+/// let helsinki = geohashrust::GeoLocation::from_coordinates(60.1708, 24.9375);
 /// assert_eq!((new_york-helsinki).round(), 6618.0);
 /// ```
 impl Sub<GeoLocation, f64> for GeoLocation {

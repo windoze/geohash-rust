@@ -1,7 +1,7 @@
-extern crate geohash;
+extern crate geohashrust;
 
 use std::num::Float;
-use geohash::GeoLocation;
+use geohashrust::GeoLocation;
 
 #[test]
 fn test_geolocation() {

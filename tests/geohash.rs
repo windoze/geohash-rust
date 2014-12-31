@@ -1,6 +1,6 @@
-extern crate geohash;
+extern crate geohashrust;
 
-use geohash::{GeoLocation, BinaryHash, encode, decode};
+use geohashrust::{GeoLocation, BinaryHash, encode, decode};
 
 #[test]
 fn test_encode() {
@@ -14,22 +14,22 @@ fn test_encode() {
 	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 8).as_slice()=="wtw77zs2");
 	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 9).as_slice()=="wtw77zs2p");
 
-	let l=geohash::GeoLocation{
+	let l=GeoLocation{
 	        latitude:31.16373922,
 	        longitude:121.62585927,
 	};
-	assert_eq!(geohash::encode(l, 1u), "w");
-	assert_eq!(geohash::encode(l, 2u), "wt");
-	assert_eq!(geohash::encode(l, 3u), "wtw");
-	assert_eq!(geohash::encode(l, 4u), "wtw3");
-	assert_eq!(geohash::encode(l, 5u), "wtw3r");
-	assert_eq!(geohash::encode(l, 6u), "wtw3r9");
-	assert_eq!(geohash::encode(l, 7u), "wtw3r9j");
-	assert_eq!(geohash::encode(l, 8u), "wtw3r9jj");
-	assert_eq!(geohash::encode(l, 9u), "wtw3r9jjz");
-	assert_eq!(geohash::encode(l, 10u), "wtw3r9jjzy");
-	assert_eq!(geohash::encode(l, 11u), "wtw3r9jjzyj");
-	assert_eq!(geohash::encode(l, 12u), "wtw3r9jjzyjc");
+	assert_eq!(encode(l, 1u), "w");
+	assert_eq!(encode(l, 2u), "wt");
+	assert_eq!(encode(l, 3u), "wtw");
+	assert_eq!(encode(l, 4u), "wtw3");
+	assert_eq!(encode(l, 5u), "wtw3r");
+	assert_eq!(encode(l, 6u), "wtw3r9");
+	assert_eq!(encode(l, 7u), "wtw3r9j");
+	assert_eq!(encode(l, 8u), "wtw3r9jj");
+	assert_eq!(encode(l, 9u), "wtw3r9jjz");
+	assert_eq!(encode(l, 10u), "wtw3r9jjzy");
+	assert_eq!(encode(l, 11u), "wtw3r9jjzyj");
+	assert_eq!(encode(l, 12u), "wtw3r9jjzyjc");
 }
 
 #[test]
@@ -55,15 +55,15 @@ fn test_binary_hash() {
 	assert_eq!(BinaryHash::encode(GeoLocation::from_coordinates(31.55, 121.46), 40).to_string(), "1110011001111000011100111111111100000010");
 	assert_eq!(BinaryHash::encode(GeoLocation::from_coordinates(31.55, 121.46), 45).to_string(), "111001100111100001110011111111110000001010101");
 
-    assert!(BinaryHash::from_string("11100").decode().contains(geohash::GeoLocation::from_coordinates(21.0, 113.0)));
-    assert!(!BinaryHash::from_string("11100").decode().contains(geohash::GeoLocation::from_coordinates(81.0, 113.0)));
-    assert!(BinaryHash::from_string("111001100111100").decode().contains(geohash::GeoLocation::from_coordinates(31.6, 121.6)));
-    assert!(!BinaryHash::from_string("111001100111100").decode().contains(geohash::GeoLocation::from_coordinates(51.0, 121.6)));
+    assert!(BinaryHash::from_string("11100").decode().contains(GeoLocation::from_coordinates(21.0, 113.0)));
+    assert!(!BinaryHash::from_string("11100").decode().contains(GeoLocation::from_coordinates(81.0, 113.0)));
+    assert!(BinaryHash::from_string("111001100111100").decode().contains(GeoLocation::from_coordinates(31.6, 121.6)));
+    assert!(!BinaryHash::from_string("111001100111100").decode().contains(GeoLocation::from_coordinates(51.0, 121.6)));
 
-    assert!(geohash::BinaryHash::decode_string("11100").contains(geohash::GeoLocation::from_coordinates(21.0, 113.0)));
-    assert!(!geohash::BinaryHash::decode_string("11100").contains(geohash::GeoLocation::from_coordinates(81.0, 113.0)));
-    assert!(geohash::BinaryHash::decode_string("111001100111100").contains(geohash::GeoLocation::from_coordinates(31.6, 121.6)));
-    assert!(!geohash::BinaryHash::decode_string("111001100111100").contains(geohash::GeoLocation::from_coordinates(51.0, 121.6)));
+    assert!(BinaryHash::decode_string("11100").contains(GeoLocation::from_coordinates(21.0, 113.0)));
+    assert!(!BinaryHash::decode_string("11100").contains(GeoLocation::from_coordinates(81.0, 113.0)));
+    assert!(BinaryHash::decode_string("111001100111100").contains(GeoLocation::from_coordinates(31.6, 121.6)));
+    assert!(!BinaryHash::decode_string("111001100111100").contains(GeoLocation::from_coordinates(51.0, 121.6)));
 }
 
 #[test]
@@ -79,12 +79,12 @@ fn test_decode() {
 	assert!(decode("wtw77zs2").contains(p));
 	assert!(decode("wtw77zs2p").contains(p));
 
-	assert!(geohash::decode("w").contains(geohash::GeoLocation::from_coordinates(21.0, 113.0)));
-	assert!(geohash::decode("wtw3r9").contains(geohash::GeoLocation::from_coordinates(31.1655, 121.624)));
-	assert!(geohash::decode("wtw3r9jjz").contains(geohash::GeoLocation::from_coordinates(31.163728, 121.625841)));
-	assert!(!geohash::decode("wtw3r9jjz").contains(geohash::GeoLocation::from_coordinates(32.163728, 121.625841)));
-	assert!(geohash::decode("wtw3r9jjzyjc").contains(geohash::GeoLocation::from_coordinates(31.16373922, 121.62585927)));
-	assert!(!geohash::decode("wtw3r9jjzyjc").contains(geohash::GeoLocation::from_coordinates(31.16373922, 121.63585927)));
+	assert!(decode("w").contains(GeoLocation::from_coordinates(21.0, 113.0)));
+	assert!(decode("wtw3r9").contains(GeoLocation::from_coordinates(31.1655, 121.624)));
+	assert!(decode("wtw3r9jjz").contains(GeoLocation::from_coordinates(31.163728, 121.625841)));
+	assert!(!decode("wtw3r9jjz").contains(GeoLocation::from_coordinates(32.163728, 121.625841)));
+	assert!(decode("wtw3r9jjzyjc").contains(GeoLocation::from_coordinates(31.16373922, 121.62585927)));
+	assert!(!decode("wtw3r9jjzyjc").contains(GeoLocation::from_coordinates(31.16373922, 121.63585927)));
 }
 
 
