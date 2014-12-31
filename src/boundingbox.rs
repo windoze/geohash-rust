@@ -1,6 +1,7 @@
 use std::num::FloatMath;
 use geolocation::GeoLocation;
 
+/// A bounding box composed by 2 geolocations
 #[deriving(Default, Copy, PartialEq)]
 pub struct BoundingBox {
 	pub min_lat : f64,
@@ -30,6 +31,17 @@ impl BoundingBox {
         }
     }
 
+    /// Create a new `BoudingBox` with 4 coordinates
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let b=geohash::BoundingBox::from_coordinates(34.0, 12.0, 78.0, 56.0);
+    /// assert!(b.min_lat==12.0);
+    /// assert!(b.min_lon==56.0);
+    /// assert!(b.max_lat==34.0);
+    /// assert!(b.max_lon==78.0);
+    /// ```
     pub fn from_coordinates(minlat:f64, maxlat:f64, minlon:f64, maxlon:f64) -> BoundingBox {
         BoundingBox {
             min_lat: minlat.min(maxlat),
