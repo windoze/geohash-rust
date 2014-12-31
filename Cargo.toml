@@ -2,4 +2,9 @@
 
 name = "geohash"
 version = "0.0.1"
-authors = ["Windoze <windoze.net@gmail.com>"]
+authors = ["Xu Chen <windoze.net@gmail.com>"]
+
+description = "A Rust GeoHash Library"
+license = "MIT"
+
+repository = "https://github.com/windoze/geohash-rust.git"
