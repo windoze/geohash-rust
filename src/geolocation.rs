@@ -1,12 +1,11 @@
-//! Geographic locations and distances
-
-use std::num::{Float, FloatMath};
+use std::num::Float;
+use std::ops::Sub;
 
 // The Earth's radius in kilometers.
 static EARTH_RADIUS: f64 = 6371.009;
 
 /// A geographic location.
-#[deriving(Default, Copy, PartialEq)]
+#[derive(Default, Copy, PartialEq)]
 pub struct GeoLocation {
     /// Latitude in degrees.
     pub latitude: f64,
@@ -87,7 +86,8 @@ impl GeoLocation {
 /// let helsinki = geohashrust::GeoLocation::from_coordinates(60.1708, 24.9375);
 /// assert_eq!((new_york-helsinki).round(), 6618.0);
 /// ```
-impl Sub<GeoLocation, f64> for GeoLocation {
+impl Sub<GeoLocation> for GeoLocation {
+    type Output = f64;
      fn sub(self, rhs: GeoLocation) -> f64 {
         self.distance_to(rhs)
      }

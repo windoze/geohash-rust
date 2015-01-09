@@ -2,14 +2,16 @@ use std::collections::Bitv;
 use geolocation::GeoLocation;
 use boundingbox::BoundingBox;
 
-static BASE32_CODES: [char, ..32] = [
+//static BASE32_CODES: [char, ..32] = [
+static BASE32_CODES: [char; 32] = [
     '0', '1', '2', '3', '4', '5', '6', '7',
     '8', '9', 'b', 'c', 'd', 'e', 'f', 'g',
     'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r',
     's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
-static BASE32_INDICES: [int, ..75]=[
+//static BASE32_INDICES: [int, ..75]=[
+static BASE32_INDICES: [int; 75]=[
 	 0,  1,  2,  3,  4,  5,  6,  7, // 30-37, '0'..'7'
 	 8,  9, -1, -1, -1, -1, -1, -1, // 38-2F, '8','9'
 	-1, -1, 10, 11, 12, 13, 14, 15, // 40-47, 'B'..'G'
@@ -23,7 +25,7 @@ static BASE32_INDICES: [int, ..75]=[
 ];
 
 /// Binary hash code for a given `GeoLocation` with specific precision
-#[deriving(Default, Copy, PartialEq)]
+#[derive(Default, Copy, PartialEq)]
 pub struct BinaryHash {
     bits : u64,
     precision : uint,
@@ -196,7 +198,7 @@ impl BinaryHash {
     pub fn to_string(&self) -> String {
         let mut output=String::with_capacity(self.precision);
         for n in range(0u, self.precision) {
-            output.grow(1, if self.test(n) {'1'} else {'0'})
+            output.push(if self.test(n) {'1'} else {'0'})
         }
         output
     }
@@ -318,14 +320,14 @@ pub fn encode(l: GeoLocation, precision: uint) -> String {
 
         num_bits+=1;
         if num_bits%5==0 {
-            output.grow(1, BASE32_CODES[hash_index]);
+            output.push(BASE32_CODES[hash_index]);
             hash_index = 0;
         }
     }
     output
 }
 
-/// Encode a `GeoLocation` into GeoHash with given precision
+/// Decode a GeoHash into a `BoundingBox`
 ///
 /// # Example
 ///

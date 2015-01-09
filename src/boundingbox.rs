@@ -1,8 +1,8 @@
-use std::num::FloatMath;
+use std::num::Float;
 use geolocation::GeoLocation;
 
 /// A bounding box composed by 2 geolocations
-#[deriving(Default, Copy, PartialEq)]
+#[derive(Default, Copy, PartialEq)]
 pub struct BoundingBox {
 	pub min_lat : f64,
 	pub max_lat : f64,
