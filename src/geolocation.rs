@@ -88,9 +88,9 @@ impl GeoLocation {
 /// ```
 impl Sub<GeoLocation> for GeoLocation {
     type Output = f64;
-     fn sub(self, rhs: GeoLocation) -> f64 {
+    fn sub(self, rhs: GeoLocation) -> f64 {
         self.distance_to(rhs)
-     }
+    }
 }
 
 
