@@ -1,11 +1,11 @@
-use std::num::Float;
+//use std::num::Float;
 use std::ops::Sub;
 
 // The Earth's radius in kilometers.
 static EARTH_RADIUS: f64 = 6371.009;
 
 /// A geographic location.
-#[derive(Default, Copy, PartialEq)]
+#[derive(Default, Clone, Copy, PartialEq)]
 pub struct GeoLocation {
     /// Latitude in degrees.
     pub latitude: f64,

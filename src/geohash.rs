@@ -1,4 +1,4 @@
-use std::collections::Bitv;
+//use std::collections::BitVec;
 use geolocation::GeoLocation;
 use boundingbox::BoundingBox;
 
@@ -9,24 +9,24 @@ static BASE32_CODES: [char; 32] = [
     's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
-static BASE32_INDICES: [int; 75]=[
-	 0,  1,  2,  3,  4,  5,  6,  7, // 30-37, '0'..'7'
-	 8,  9, -1, -1, -1, -1, -1, -1, // 38-2F, '8','9'
-	-1, -1, 10, 11, 12, 13, 14, 15, // 40-47, 'B'..'G'
-	16, -1, 17, 18, -1, 19, 20, -1, // 48-4F, 'H','J','K','M','N'
-	21, 22, 23, 24, 25, 26, 27, 28, // 50-57, 'P'..'W'
-	29, 30, 31, -1, -1, -1, -1, -1, // 58-5F, 'X'..'Z'
-	-1, -1, 10, 11, 12, 13, 14, 15, // 60-67, 'b'..'g'
-	16, -1, 17, 18, -1, 19, 20, -1, // 68-6F, 'h','j','k','m','n'
-	21, 22, 23, 24, 25, 26, 27, 28, // 70-77, 'p'..'w'
-	29, 30, 31,                     // 78-7A, 'x'..'z'
+static BASE32_INDICES: [u8; 75]=[
+	   0,    1,    2,    3,    4,    5,    6,    7, // 30-37, '0'..'7'
+	   8,    9, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // 38-2F, '8','9'
+	0xFF, 0xFF,   10,   11,   12,   13,   14,   15, // 40-47, 'B'..'G'
+	  16, 0xFF,   17,   18, 0xFF,   19,   20, 0xFF, // 48-4F, 'H','J','K','M','N'
+	  21,   22,   23,   24,   25,   26,   27,   28, // 50-57, 'P'..'W'
+	  29,   30,   31, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // 58-5F, 'X'..'Z'
+	0xFF, 0xFF,   10,   11,   12,   13,   14,   15, // 60-67, 'b'..'g'
+	  16, 0xFF,   17,   18, 0xFF,   19,   20, 0xFF, // 68-6F, 'h','j','k','m','n'
+	  21,   22,   23,   24,   25,   26,   27,   28, // 70-77, 'p'..'w'
+	  29,   30,   31,                               // 78-7A, 'x'..'z'
 ];
 
 /// Binary hash code for a given `GeoLocation` with specific precision
-#[derive(Default, Copy, PartialEq)]
+#[derive(Default, Clone, Copy, PartialEq)]
 pub struct BinaryHash {
     bits : u64,
-    precision : uint,
+    precision : u8,
 }
 
 ///
@@ -35,21 +35,22 @@ impl BinaryHash {
     pub fn new() -> BinaryHash {
         BinaryHash{
             bits: 0u64,
-            precision: 0u,
+            precision: 0u8,
         }
     }
 
-    /// Create a `BinaryHash` from a `Bitv`
+    /// Create a `BinaryHash` from a `BitVec`
     ///
     /// # Example
     ///
     /// ```
-    /// use std::collections::Bitv;
+    /// use std::collections::BitVec;
     /// let a=0b11100110;
-    /// let bv = Bitv::from_bytes(&[a]);
-    /// assert_eq!(geohashrust::BinaryHash::from_bitv(&bv).to_string(), "11100110");
+    /// let bv = BitVec::from_bytes(&[a]);
+    /// assert_eq!(geohashrust::BinaryHash::from_BitVec(&bv).to_string(), "11100110");
     /// ```
-    pub fn from_bitv(bv: &Bitv) -> BinaryHash {
+    #[cfg(unstable)]
+    pub fn from_BitVec(bv: &BitVec) -> BinaryHash {
         let mut output=BinaryHash::new();
         for b in bv.iter() {
             output.push(b)
@@ -89,7 +90,7 @@ impl BinaryHash {
     /// let bh=geohashrust::BinaryHash::encode(l, 8);
     /// assert_eq!(bh.to_string(), "11100110");
     /// ```
-    pub fn encode(l: GeoLocation, precision: uint) -> BinaryHash {
+    pub fn encode(l: GeoLocation, precision: u8) -> BinaryHash {
         let mut bbox = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
         let mut islon = true;
         
@@ -133,7 +134,7 @@ impl BinaryHash {
         let mut output = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
         let mut islon = true;
         
-        for n in range(0u, self.precision) {
+        for n in (0u8..self.precision) {
             if islon {
                 let mid = (output.max_lon + output.min_lon) / 2.0;
                 if self.test(n) {
@@ -166,20 +167,21 @@ impl BinaryHash {
         BinaryHash::from_string(s).decode()
     }
 
-    /// Convert `BinaryHash` to a `Bitv`
+    /// Convert `BinaryHash` to a `BitVec`
     ///
     /// # Example
     ///
     /// ```
-    /// use std::collections::Bitv;
+    /// use std::collections::BitVec;
     /// let a=0b11100110;
-    /// let bv = Bitv::from_bytes(&[a]);
+    /// let bv = BitVec::from_bytes(&[a]);
     /// let bh=geohashrust::BinaryHash::from_string("11100110");
-    /// assert_eq!(bh.to_bitv(), bv);
+    /// assert_eq!(bh.to_BitVec(), bv);
     /// ```
-    pub fn to_bitv(&self) -> Bitv {
-        let mut output=Bitv::with_capacity(self.precision);
-        for n in range(0u, self.precision) {
+    #[cfg(unstable)]
+    pub fn to_BitVec(&self) -> BitVec {
+        let mut output=BitVec::with_capacity(self.precision as usize);
+        for n in (0u8..self.precision) {
             output.push(self.test(n))
         }
         output
@@ -194,8 +196,8 @@ impl BinaryHash {
     /// assert_eq!(bh.to_string(), "11100110");
     /// ```
     pub fn to_string(&self) -> String {
-        let mut output=String::with_capacity(self.precision);
-        for n in range(0u, self.precision) {
+        let mut output=String::with_capacity(self.precision as usize);
+        for n in (0u8..self.precision) {
             output.push(if self.test(n) {'1'} else {'0'})
         }
         output
@@ -207,15 +209,15 @@ impl BinaryHash {
     ///
     /// ```
     /// let mut bh=geohashrust::BinaryHash::new();
-    /// assert_eq!(bh.len(), 0u);
+    /// assert_eq!(bh.len(), 0);
     /// bh.push(true);
     /// bh.push(true);
-    /// assert_eq!(bh.len(), 2u);
+    /// assert_eq!(bh.len(), 2);
     /// bh.push(false);
     /// bh.push(true);
-    /// assert_eq!(bh.len(), 4u);
+    /// assert_eq!(bh.len(), 4);
     /// ```
-    pub fn len(&self) -> uint {
+    pub fn len(&self) -> u8 {
         self.precision
     }
 
@@ -233,7 +235,7 @@ impl BinaryHash {
     /// assert!(!bh.empty());
     /// ```
     pub fn empty(&self) -> bool {
-        self.precision == 0u
+        self.precision == 0u8
     }
 
     /// Test specific bit of the binary hash
@@ -251,8 +253,8 @@ impl BinaryHash {
     /// assert!(!bh.test(2));
     /// assert!(bh.test(3));
     /// ```
-    pub fn test(&self, n: uint) -> bool {
-        (self.bits & (1u64 << (self.precision-n-1u))) != 0
+    pub fn test(&self, n: u8) -> bool {
+        (self.bits & (1u64 << (self.precision-n-1))) != 0
     }
 
     /// Push a bit into binary hash
@@ -268,9 +270,9 @@ impl BinaryHash {
     /// assert_eq!(bh.to_string(), "1101");
     /// ```
     pub fn push(&mut self, b: bool) {
-        self.bits <<= 1u;
+        self.bits <<= 1u64;
         self.bits |= if b {1u64} else {0u64};
-        self.precision += 1u;
+        self.precision += 1u8;
     }
 }
 
@@ -283,18 +285,18 @@ impl BinaryHash {
 ///         latitude:31.16373922,
 ///         longitude:121.62585927,
 /// };
-/// assert_eq!(geohashrust::encode(l, 7u), "wtw3r9j");
+/// assert_eq!(geohashrust::encode(l, 7), "wtw3r9j");
 /// ```
-pub fn encode(l: GeoLocation, precision: uint) -> String {
+pub fn encode(l: GeoLocation, precision: u8) -> String {
 	let mut bbox = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
     let mut islon = true;
-    let mut num_bits = 0u;
-    let mut hash_index = 0u;
+    let mut num_bits = 0u8;
+    let mut hash_index = 0us;
 
     // Pre-Allocate the hash string
-    let mut output=String::with_capacity(precision);
+    let mut output=String::with_capacity(precision as usize);
     
-    while output.len() < precision {
+    while output.len() < (precision as usize) {
         if islon {
             let mid = (bbox.max_lon + bbox.min_lon) / 2.0;
             if l.longitude > mid {
@@ -339,9 +341,10 @@ pub fn decode(hash: &str) -> BoundingBox {
 
     for c in hash.chars() {
         assert!(c>='0' && c<='z');
-        let char_index = BASE32_INDICES[(c as uint)-48];
+        let char_index = BASE32_INDICES[(c as usize)-48];
+        assert!(char_index<32);
 
-        for bits in range(0u, 5).rev() {
+        for bits in (0us..5).rev() {
             let bit = ((char_index >> bits) & 1)==1;
             if islon {
                 let mid = (output.max_lon + output.min_lon) / 2.0;
@@ -374,7 +377,7 @@ pub fn decode(hash: &str) -> BoundingBox {
 /// assert_eq!(geohashrust::neighbor("wtw3s", (-1, -1)), "wtw37");
 /// assert_eq!(geohashrust::neighbor("wtw3sjj", (1, -1)), "wtw3sjk");
 /// ```
-pub fn neighbor(hash: &str, direction: (int, int)) -> String {
+pub fn neighbor(hash: &str, direction: (i8, i8)) -> String {
 	let b = decode(hash);
 	let cp = b.center();
 	encode(match direction {
@@ -382,7 +385,7 @@ pub fn neighbor(hash: &str, direction: (int, int)) -> String {
 			cp.latitude + b.latitude_range() * (dlat as f64),
 			cp.longitude + b.longitude_range() * (dlon as f64),
 		)
-	}, hash.len())
+	}, hash.len() as u8)
 }
 
 /// Get a vector of neighbors for the GeoHash on all 8 directions, with itself as the first
@@ -402,7 +405,7 @@ pub fn neighbor(hash: &str, direction: (int, int)) -> String {
 /// assert_eq!(ns[8], "wtw3v");
 /// ```
 pub fn neighbors(hash: &str) -> Box<Vec<String>> {
-	box vec![
+	Box::new(vec![
 		hash.to_string(),
 		neighbor(hash, (-1, -1)),
 		neighbor(hash, (-1,  0)),
@@ -412,7 +415,7 @@ pub fn neighbors(hash: &str) -> Box<Vec<String>> {
 		neighbor(hash, ( 1, -1)),
 		neighbor(hash, ( 1,  0)),
 		neighbor(hash, ( 1,  1)),
-	]
+	])
 }
 
 

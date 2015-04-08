@@ -4,32 +4,32 @@ use geohashrust::{GeoLocation, BinaryHash, encode, decode};
 
 #[test]
 fn test_encode() {
-	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 1).as_slice()=="w");
-	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 2).as_slice()=="wt");
-	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 3).as_slice()=="wtw");
-	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 4).as_slice()=="wtw7");
-	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 5).as_slice()=="wtw77");
-	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 6).as_slice()=="wtw77z");
-	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 7).as_slice()=="wtw77zs");
-	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 8).as_slice()=="wtw77zs2");
-	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 9).as_slice()=="wtw77zs2p");
+	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 1)=="w");
+	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 2)=="wt");
+	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 3)=="wtw");
+	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 4)=="wtw7");
+	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 5)=="wtw77");
+	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 6)=="wtw77z");
+	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 7)=="wtw77zs");
+	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 8)=="wtw77zs2");
+	assert!(encode(GeoLocation::from_coordinates(31.55, 121.46), 9)=="wtw77zs2p");
 
 	let l=GeoLocation{
 	        latitude:31.16373922,
 	        longitude:121.62585927,
 	};
-	assert_eq!(encode(l, 1u), "w");
-	assert_eq!(encode(l, 2u), "wt");
-	assert_eq!(encode(l, 3u), "wtw");
-	assert_eq!(encode(l, 4u), "wtw3");
-	assert_eq!(encode(l, 5u), "wtw3r");
-	assert_eq!(encode(l, 6u), "wtw3r9");
-	assert_eq!(encode(l, 7u), "wtw3r9j");
-	assert_eq!(encode(l, 8u), "wtw3r9jj");
-	assert_eq!(encode(l, 9u), "wtw3r9jjz");
-	assert_eq!(encode(l, 10u), "wtw3r9jjzy");
-	assert_eq!(encode(l, 11u), "wtw3r9jjzyj");
-	assert_eq!(encode(l, 12u), "wtw3r9jjzyjc");
+	assert_eq!(encode(l, 1u8), "w");
+	assert_eq!(encode(l, 2u8), "wt");
+	assert_eq!(encode(l, 3u8), "wtw");
+	assert_eq!(encode(l, 4u8), "wtw3");
+	assert_eq!(encode(l, 5u8), "wtw3r");
+	assert_eq!(encode(l, 6u8), "wtw3r9");
+	assert_eq!(encode(l, 7u8), "wtw3r9j");
+	assert_eq!(encode(l, 8u8), "wtw3r9jj");
+	assert_eq!(encode(l, 9u8), "wtw3r9jjz");
+	assert_eq!(encode(l, 10u8), "wtw3r9jjzy");
+	assert_eq!(encode(l, 11u8), "wtw3r9jjzyj");
+	assert_eq!(encode(l, 12u8), "wtw3r9jjzyjc");
 }
 
 #[test]
