@@ -1,4 +1,3 @@
-//use std::num::Float;
 use std::ops::Sub;
 
 // The Earth's radius in kilometers.
@@ -55,7 +54,6 @@ impl GeoLocation {
     /// # Example
     ///
     /// ```
-    /// use std::num::Float;
     /// let new_york = geohashrust::GeoLocation::from_coordinates(40.7127, -74.0059);
     /// let helsinki = geohashrust::GeoLocation::from_coordinates(60.1708, 24.9375);
     /// assert_eq!(new_york.distance_to(helsinki).round(), 6618.0);
@@ -81,7 +79,6 @@ impl GeoLocation {
 /// # Example
 ///
 /// ```
-/// use std::num::Float;
 /// let new_york = geohashrust::GeoLocation::from_coordinates(40.7127, -74.0059);
 /// let helsinki = geohashrust::GeoLocation::from_coordinates(60.1708, 24.9375);
 /// assert_eq!((new_york-helsinki).round(), 6618.0);

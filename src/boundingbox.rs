@@ -1,4 +1,3 @@
-//use std::num::Float;
 use geolocation::GeoLocation;
 
 /// A bounding box composed by 2 geolocations

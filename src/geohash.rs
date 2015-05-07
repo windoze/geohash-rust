@@ -1,4 +1,3 @@
-//use std::collections::BitVec;
 use geolocation::GeoLocation;
 use boundingbox::BoundingBox;
 
@@ -197,7 +196,7 @@ impl BinaryHash {
     /// ```
     pub fn to_string(&self) -> String {
         let mut output=String::with_capacity(self.precision as usize);
-        for n in (0u8..self.precision) {
+        for n in (0..self.precision) {
             output.push(if self.test(n) {'1'} else {'0'})
         }
         output
@@ -235,7 +234,7 @@ impl BinaryHash {
     /// assert!(!bh.empty());
     /// ```
     pub fn empty(&self) -> bool {
-        self.precision == 0u8
+        self.precision == 0
     }
 
     /// Test specific bit of the binary hash
@@ -290,8 +289,8 @@ impl BinaryHash {
 pub fn encode(l: GeoLocation, precision: u8) -> String {
 	let mut bbox = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
     let mut islon = true;
-    let mut num_bits = 0u8;
-    let mut hash_index = 0us;
+    let mut num_bits = 0;
+    let mut hash_index = 0;
 
     // Pre-Allocate the hash string
     let mut output=String::with_capacity(precision as usize);
@@ -344,7 +343,7 @@ pub fn decode(hash: &str) -> BoundingBox {
         let char_index = BASE32_INDICES[(c as usize)-48];
         assert!(char_index<32);
 
-        for bits in (0us..5).rev() {
+        for bits in (0..5).rev() {
             let bit = ((char_index >> bits) & 1)==1;
             if islon {
                 let mid = (output.max_lon + output.min_lon) / 2.0;

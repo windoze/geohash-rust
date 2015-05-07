@@ -1,6 +1,5 @@
 extern crate geohashrust;
 
-use std::num::Float;
 use geohashrust::GeoLocation;
 
 #[test]
@@ -19,8 +18,8 @@ fn distance() {
     let helsinki = GeoLocation::from_coordinates(60.1708, 24.9375);
     let munich = GeoLocation::from_coordinates(48.1333, 11.5667);
 
-    assert_eq!(new_york.distance_to(helsinki).round(), 6618.337890486902.round());
-    assert_eq!(munich.distance_to(helsinki).round(), 1590.1646151045206.round());
+    assert_eq!(new_york.distance_to(helsinki).round(), 6618.337890486902_f64.round());
+    assert_eq!(munich.distance_to(helsinki).round(), 1590.1646151045206_f64.round());
 }
 
 #[test]
@@ -29,7 +28,7 @@ fn sub_distance() {
     let helsinki = GeoLocation::from_coordinates(60.1708, 24.9375);
     let munich = GeoLocation::from_coordinates(48.1333, 11.5667);
 
-    assert_eq!((new_york-helsinki).round(), 6618.337890486902.round());
-    assert_eq!((munich-helsinki).round(), 1590.1646151045206.round());
+    assert_eq!((new_york-helsinki).round(), 6618.337890486902_f64.round());
+    assert_eq!((munich-helsinki).round(), 1590.1646151045206_f64.round());
 }
 
