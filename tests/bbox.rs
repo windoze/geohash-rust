@@ -16,11 +16,11 @@ fn box_create() {
     assert!(b.max_lon==78.0);
 
 	let b=BoundingBox::from_geolocations(
-			GeoLocation{
+			&GeoLocation{
 				latitude:23.0,
 				longitude:89.0,
 			},
-			GeoLocation{
+			&GeoLocation{
 				latitude:67.0,
 				longitude:45.0,
 			},
@@ -34,47 +34,47 @@ fn box_create() {
 #[test]
 fn box_contains() {
 	let box1=BoundingBox::from_geolocations(
-			GeoLocation{
+			&GeoLocation{
 				latitude:23.0,
 				longitude:89.0,
 			},
-			GeoLocation{
+			&GeoLocation{
 				latitude:67.0,
 				longitude:45.0,
 			},
 		);
 	// Inside
-	assert!(box1.contains(GeoLocation{
+	assert!(box1.contains(&GeoLocation{
 				latitude:34.0,
 				longitude:56.0,
 	}));
 	// Border
-	assert!(box1.contains(GeoLocation{
+	assert!(box1.contains(&GeoLocation{
 				latitude:23.0,
 				longitude:89.0,
 	}));
 	// Below
-	assert!(!box1.contains(GeoLocation{
+	assert!(!box1.contains(&GeoLocation{
 				latitude:12.0,
 				longitude:67.0,
 	}));
 	// Above
-	assert!(!box1.contains(GeoLocation{
+	assert!(!box1.contains(&GeoLocation{
 				latitude:89.0,
 				longitude:67.0,
 	}));
 	// Left
-	assert!(!box1.contains(GeoLocation{
+	assert!(!box1.contains(&GeoLocation{
 				latitude:34.0,
 				longitude:23.0,
 	}));
 	// Right
-	assert!(!box1.contains(GeoLocation{
+	assert!(!box1.contains(&GeoLocation{
 				latitude:34.0,
 				longitude:23.0,
 	}));
 	// Left-Below
-	assert!(!box1.contains(GeoLocation{
+	assert!(!box1.contains(&GeoLocation{
 				latitude:12.0,
 				longitude:34.0,
 	}));
@@ -83,26 +83,26 @@ fn box_contains() {
 #[test]
 fn box_expand() {
 	let mut box1=BoundingBox::from_geolocations(
-			GeoLocation{
+			&GeoLocation{
 				latitude:23.0,
 				longitude:89.0,
 			},
-			GeoLocation{
+			&GeoLocation{
 				latitude:67.0,
 				longitude:45.0,
 			},
 		);
     let box2=BoundingBox::from_geolocations(
-        GeoLocation{
+        &GeoLocation{
             latitude:123.0,
             longitude:89.0,
         },
-        GeoLocation{
+        &GeoLocation{
             latitude:67.0,
             longitude:145.0,
         },
     );
-	box1.merge_with(box2);
+	box1.merge_with(&box2);
 	assert!(box1.min_lat==23.0);
 	assert!(box1.min_lon==45.0);
 	assert!(box1.max_lat==123.0);

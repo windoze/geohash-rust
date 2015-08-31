@@ -86,10 +86,10 @@ impl BinaryHash {
     ///         latitude:31.23,
     ///         longitude:121.473,
     /// };
-    /// let bh=geohashrust::BinaryHash::encode(l, 8);
+    /// let bh=geohashrust::BinaryHash::encode(&l, 8);
     /// assert_eq!(bh.to_string(), "11100110");
     /// ```
-    pub fn encode(l: GeoLocation, precision: u8) -> BinaryHash {
+    pub fn encode(l: &GeoLocation, precision: u8) -> BinaryHash {
         let mut bbox = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
         let mut islon = true;
         
@@ -127,7 +127,7 @@ impl BinaryHash {
     /// ```
     /// let bh=geohashrust::BinaryHash::from_string("11100");
     /// let bbox=bh.decode();
-    /// assert!(bbox.contains(geohashrust::GeoLocation::from_coordinates(21.0, 113.0)));
+    /// assert!(bbox.contains(&geohashrust::GeoLocation::from_coordinates(21.0, 113.0)));
     /// ```
     pub fn decode(&self) -> BoundingBox {
         let mut output = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
@@ -160,7 +160,7 @@ impl BinaryHash {
     ///
     /// ```
     /// let bbox=geohashrust::BinaryHash::decode_string("11100");
-    /// assert!(bbox.contains(geohashrust::GeoLocation::from_coordinates(21.0, 113.0)));
+    /// assert!(bbox.contains(&geohashrust::GeoLocation::from_coordinates(21.0, 113.0)));
     /// ```
     pub fn decode_string(s: &str) -> BoundingBox {
         BinaryHash::from_string(s).decode()
@@ -284,9 +284,9 @@ impl BinaryHash {
 ///         latitude:31.16373922,
 ///         longitude:121.62585927,
 /// };
-/// assert_eq!(geohashrust::encode(l, 7), "wtw3r9j");
+/// assert_eq!(geohashrust::encode(&l, 7), "wtw3r9j");
 /// ```
-pub fn encode(l: GeoLocation, precision: u8) -> String {
+pub fn encode(l: &GeoLocation, precision: u8) -> String {
 	let mut bbox = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
     let mut islon = true;
     let mut num_bits = 0;
@@ -332,7 +332,7 @@ pub fn encode(l: GeoLocation, precision: u8) -> String {
 ///
 /// ```
 /// let bbox=geohashrust::decode("wtw3r9jjz");
-/// assert!(bbox.contains(geohashrust::GeoLocation::from_coordinates(31.163728, 121.625841)));
+/// assert!(bbox.contains(&geohashrust::GeoLocation::from_coordinates(31.163728, 121.625841)));
 /// ```
 pub fn decode(hash: &str) -> BoundingBox {
     let mut output = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
@@ -379,12 +379,13 @@ pub fn decode(hash: &str) -> BoundingBox {
 pub fn neighbor(hash: &str, direction: (i8, i8)) -> String {
 	let b = decode(hash);
 	let cp = b.center();
-	encode(match direction {
-		(dlat, dlon) => GeoLocation::from_coordinates(
-			cp.latitude + b.latitude_range() * (dlat as f64),
-			cp.longitude + b.longitude_range() * (dlon as f64),
-		)
-	}, hash.len() as u8)
+    let gl=match direction {
+        (dlat, dlon) => GeoLocation::from_coordinates(
+            cp.latitude + b.latitude_range() * (dlat as f64),
+            cp.longitude + b.longitude_range() * (dlon as f64),
+        )
+    };
+	encode(&gl, hash.len() as u8)
 }
 
 /// Get a vector of neighbors for the GeoHash on all 8 directions, with itself as the first

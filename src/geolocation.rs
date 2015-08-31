@@ -56,9 +56,9 @@ impl GeoLocation {
     /// ```
     /// let new_york = geohashrust::GeoLocation::from_coordinates(40.7127, -74.0059);
     /// let helsinki = geohashrust::GeoLocation::from_coordinates(60.1708, 24.9375);
-    /// assert_eq!(new_york.distance_to(helsinki).round(), 6618.0);
+    /// assert_eq!(new_york.distance_to(&helsinki).round(), 6618.0);
     /// ```
-    pub fn distance_to(&self, other: GeoLocation) -> f64 {
+    pub fn distance_to(&self, other: &GeoLocation) -> f64 {
         let lat1 = self.latitude.to_radians();
         let lat2 = other.latitude.to_radians();
         let dlat = (other.latitude - self.latitude).to_radians();
@@ -86,7 +86,7 @@ impl GeoLocation {
 impl Sub<GeoLocation> for GeoLocation {
     type Output = f64;
     fn sub(self, rhs: GeoLocation) -> f64 {
-        self.distance_to(rhs)
+        self.distance_to(&rhs)
     }
 }
 

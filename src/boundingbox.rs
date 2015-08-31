@@ -56,11 +56,11 @@ impl BoundingBox {
     ///
     /// ```
     /// let box1=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude:23.0,
     ///         longitude:89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude:67.0,
     ///         longitude:45.0,
     ///     },
@@ -70,7 +70,7 @@ impl BoundingBox {
     /// assert!(box1.max_lat==67.0);
     /// assert!(box1.max_lon==89.0);
     /// ```
-    pub fn from_geolocations(p1 : GeoLocation, p2 : GeoLocation) -> BoundingBox {
+    pub fn from_geolocations(p1 : &GeoLocation, p2 : &GeoLocation) -> BoundingBox {
         BoundingBox {
             min_lat: p1.latitude.min(p2.latitude),
             max_lat: p1.latitude.max(p2.latitude),
@@ -85,32 +85,32 @@ impl BoundingBox {
     ///
     /// ```
     /// let box1=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
     /// );
     /// let box2=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 123.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 145.0,
     ///     },
     /// );
-    /// let box3=geohashrust::BoundingBox::merged(box1, box2);
+    /// let box3=geohashrust::BoundingBox::merged(&box1, &box2);
     /// assert_eq!(box3.min_lat, 23.0);
     /// assert_eq!(box3.min_lon, 45.0);
     /// assert_eq!(box3.max_lat, 123.0);
     /// assert_eq!(box3.max_lon, 145.0);
     /// ```
-    pub fn merged(one: BoundingBox, other: BoundingBox) -> BoundingBox {
+    pub fn merged(one: &BoundingBox, other: &BoundingBox) -> BoundingBox {
     	BoundingBox {
     		min_lat: one.min_lat.min(other.min_lat),
     		max_lat: one.max_lat.max(other.max_lat),
@@ -125,11 +125,11 @@ impl BoundingBox {
     ///
     /// ```
     /// let b=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -150,11 +150,11 @@ impl BoundingBox {
     ///
     /// ```
     /// let b=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -175,11 +175,11 @@ impl BoundingBox {
     ///
     /// ```
     /// let b=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -200,11 +200,11 @@ impl BoundingBox {
     ///
     /// ```
     /// let b=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -225,11 +225,11 @@ impl BoundingBox {
     ///
     /// ```
     /// let b=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -250,11 +250,11 @@ impl BoundingBox {
     ///
     /// ```
     /// let b=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -271,11 +271,11 @@ impl BoundingBox {
     ///
     /// ```
     /// let b=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 99.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -292,11 +292,11 @@ impl BoundingBox {
     ///
     /// ```
     /// let b=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -313,11 +313,11 @@ impl BoundingBox {
     ///
     /// ```
     /// let b=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 99.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
@@ -334,19 +334,19 @@ impl BoundingBox {
     ///
     /// ```
     /// let b=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 99.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
     /// );
-    /// assert!(b.contains(geohashrust::GeoLocation::from_coordinates(33.0, 55.0)));
-    /// assert!(!b.contains(geohashrust::GeoLocation::from_coordinates(13.0, 55.0)));
+    /// assert!(b.contains(&geohashrust::GeoLocation::from_coordinates(33.0, 55.0)));
+    /// assert!(!b.contains(&geohashrust::GeoLocation::from_coordinates(13.0, 55.0)));
     /// ```
-    pub fn contains(&self, point: GeoLocation) -> bool {
+    pub fn contains(&self, point: &GeoLocation) -> bool {
     	(point.latitude >= self.min_lat) && (point.latitude <= self.max_lat)
     	&& (point.longitude >= self.min_lon) && (point.longitude <= self.max_lon)
     }
@@ -357,32 +357,32 @@ impl BoundingBox {
     ///
     /// ```
     /// let mut box1=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 23.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 45.0,
     ///     },
     /// );
     /// let box2=geohashrust::BoundingBox::from_geolocations(
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 123.0,
     ///         longitude: 89.0,
     ///     },
-    ///     geohashrust::GeoLocation{
+    ///     &geohashrust::GeoLocation{
     ///         latitude: 67.0,
     ///         longitude: 145.0,
     ///     },
     /// );
-    /// box1.merge_with(box2);
+    /// box1.merge_with(&box2);
     /// assert_eq!(box1.min_lat, 23.0);
     /// assert_eq!(box1.min_lon, 45.0);
     /// assert_eq!(box1.max_lat, 123.0);
     /// assert_eq!(box1.max_lon, 145.0);
     /// ```
-    pub fn merge_with(&mut self, other: BoundingBox) {
+    pub fn merge_with(&mut self, other: &BoundingBox) {
     	if other.min_lat < self.min_lat {
     		self.min_lat=other.min_lat
     	}
