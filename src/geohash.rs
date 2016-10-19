@@ -133,7 +133,7 @@ impl BinaryHash {
         let mut output = BoundingBox::from_coordinates(-90.0, 90.0, -180.0, 180.0);
         let mut islon = true;
         
-        for n in (0u8..self.precision) {
+        for n in 0u8..self.precision {
             if islon {
                 let mid = (output.max_lon + output.min_lon) / 2.0;
                 if self.test(n) {
@@ -196,7 +196,7 @@ impl BinaryHash {
     /// ```
     pub fn to_string(&self) -> String {
         let mut output=String::with_capacity(self.precision as usize);
-        for n in (0..self.precision) {
+        for n in 0..self.precision {
             output.push(if self.test(n) {'1'} else {'0'})
         }
         output
